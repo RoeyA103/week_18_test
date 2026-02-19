@@ -1,8 +1,11 @@
 import redis
-import json
+import os
+
+redis_host = os.getenv("REDIS_HOST","localhost")
+
 
 def get_r():
-    r = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True)
+    r = redis.Redis(host=redis_host, port=6379, db=0, decode_responses=True)
     return r
 
 
