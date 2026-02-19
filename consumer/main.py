@@ -8,7 +8,7 @@ def main():
     while True:
         print("try read msg")
         try:
-            message_id = r.brpop("URGENT",timeout=5)[1]
+            message_id = r.brpop("URGENT",timeout=0)[1]
 
             full_message_hash = r.hgetall(f"message:{message_id}")
 
@@ -23,7 +23,7 @@ def main():
         except TypeError:
             try:
                 print("no data in URGENT trying in NORMAL")
-                message_id = r.brpop("NORMAL",timeout=5)[1]
+                message_id = r.brpop("NORMAL",timeout=0)[1]
 
                 full_message_hash = r.hgetall(f"message:{message_id}")
 
