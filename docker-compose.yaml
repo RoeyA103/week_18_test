@@ -50,7 +50,7 @@ services:
 
   consumer:
     container_name: consumer
-    image: roeyaverbuch/consumer_test:1.0
+    image: docker.io/roeyaverbuch/consumer_test:1.0
     environment:
       - MONGO_HOST=mongodb://mongo:27017
       - MONGO_DB_NAME=test

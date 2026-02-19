@@ -1,5 +1,5 @@
 from mongo_connection import get_collection
-from rich import print as pprint
+
 
 def alerts_by_border_and_priority():
     collection = get_collection()
