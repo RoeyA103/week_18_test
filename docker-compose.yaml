@@ -1,0 +1,81 @@
+version: '1.0'
+
+services:
+  
+  redis:
+    container_name: redis
+    image: redis:7
+    ports:
+    - "6379:6379"
+    volumes:
+    - redis_data:/data
+    command: ["redis-server", "--appendonly", "yes"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+  
+  mongo:
+    container_name: mongo
+    image: mongo:7.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+  
+  api:
+    container_name: api
+    build: ./analystic-api
+    ports:
+      - "8080:8080"
+    environment:
+      - MONGO_HOST=mongodb://mongo:27017
+      - MONGO_DB_NAME=test
+      - MONGO_COLLECTION=events
+      - REDIS_HOTS=redis
+    depends_on:
+      mongo:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  consumer:
+    container_name: consumer
+    build: ./consumer
+    environment:
+      - MONGO_HOST=mongodb://mongo:27017
+      - MONGO_DB_NAME=test
+      - MONGO_COLLECTION=events
+      - REDIS_HOTS=redis
+    depends_on:
+      mongo:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  producer:
+    container_name: producer
+    build: ./producer
+    environment:
+      - MONGO_HOST=mongodb://mongo:27017
+      - MONGO_DB_NAME=test
+      - MONGO_COLLECTION=events
+      - REDIS_HOTS=redis
+    depends_on:
+      mongo:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+volumes:
+  mongo_data:
+  redis_data:
