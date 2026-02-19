@@ -52,10 +52,10 @@ services:
     container_name: consumer
     image: docker.io/roeyaverbuch/consumer_test:1.0
     environment:
-      - MONGO_HOST=mongodb://mongo:27017
-      - MONGO_DB_NAME=test
-      - MONGO_COLLECTION=events
-      - REDIS_HOTS=redis
+    - MONGO_HOST=mongodb://mongo:27017
+    - MONGO_DB_NAME=test
+    - MONGO_COLLECTION=events
+    - REDIS_HOTS=redis
     depends_on:
       mongo:
         condition: service_healthy
@@ -66,10 +66,10 @@ services:
     container_name: producer
     image: roeyaverbuch/producer_test:1.0 
     environment:
-      - MONGO_HOST=mongodb://mongo:27017
-      - MONGO_DB_NAME=test
-      - MONGO_COLLECTION=events
-      - REDIS_HOTS=redis
+    - MONGO_HOST=mongodb://mongo:27017
+    - MONGO_DB_NAME=test
+    - MONGO_COLLECTION=events
+    - REDIS_HOTS=redis
     depends_on:
       mongo:
         condition: service_healthy

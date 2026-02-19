@@ -1,7 +1,7 @@
 import redis
 import os
 
-redis_host = os.getenv("REDIS_HOST","localhost")
+redis_host = os.getenv("REDIS_HOST","redis")
 
 
 def get_r():
