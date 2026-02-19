@@ -14,8 +14,8 @@ def top_urgent_zones():
 
 @route.get("/distance-distribution")
 def distance_distribution():
-    return dal.distance_distribution()
+    return {}
 
 @route.get("/low-visibility-high-activity")
 def low_visibility_high_activity():
-    pass
+    return {}
