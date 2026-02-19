@@ -20,7 +20,7 @@ def alerts_by_border_and_priority():
         }
         ]
     res =list(collection.aggregate(pipline3))
-    print(res)
+
     return res
 
 def top_urgent_zones()->list:
