@@ -50,7 +50,7 @@ services:
 
   consumer:
     container_name: consumer
-    image: ./consumer
+    build: ./consumer
     environment:
     - MONGO_HOST=mongodb://mongo:27017
     - MONGO_DB_NAME=test
@@ -64,7 +64,7 @@ services:
 
   producer:
     container_name: producer
-    image: ./producer
+    build: ./producer
     environment:
     - MONGO_HOST=mongodb://mongo:27017
     - MONGO_DB_NAME=test
